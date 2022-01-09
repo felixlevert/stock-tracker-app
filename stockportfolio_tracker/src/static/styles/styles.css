@@ -1,0 +1,44 @@
+/* Custom properties */
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+:root {
+    --ff-primary: 'Source Sans Pro', sans-serif;
+    --ff-secondary: 'Source Code Pro', monospace;
+
+    --fw-reg: 300;
+    --fw-bold: 900;
+
+    --clr-light: rgb(240, 240, 240);
+    --clr-dark: #303030;
+    --clr-accent: #47bd57;
+
+    --fs-h1: 3rem;
+    --fs-h2: 2.25rem; 
+    --fs-h3: 1.25rem;
+    --fs-body: 1rem;
+
+    --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.25),
+          0.125em 0.125em 0.25em rgba(0,0,0,.15)
+}
+
+.hero is-primary is-fullheight {
+    background: var(--clr-dark);
+}
+
+
+.nav-title {
+    font-size: 2rem;
+    position: fixed;
+    left: 1rem;
+}
+
+.navbar-end {
+    position: fixed;
+    right: 1rem;
+    top: 0.3rem;
+}

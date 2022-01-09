@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'modals.html' %}
+
+<h1 id="welcome_msg" class="title">
+    Welcome, {{ name }}!
+</h1>
+
+{% include 'portfolio.html' %}
+
+{% endblock %}
