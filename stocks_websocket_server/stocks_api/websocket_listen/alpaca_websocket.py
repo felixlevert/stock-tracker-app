@@ -9,15 +9,18 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 def on_message(ws, message):
     msg = json.loads(message)
-    if "T" in msg:
-        ticker = msg["T"]
+    data = msg['data']
+    if data['ev'] == 'T':
+        print("HEREEEEEE")
+        ticker = data["T"]
         if stock_prices.quotes[ticker]:
-            stock_prices.quotes[ticker] = msg["p"]
-        print(f'*****TICKER*****= {ticker} PRICE = {msg["p"]}**********')
+            stock_prices.quotes[ticker] = data["p"]
+        print(f'*****TICKER*****= {ticker} PRICE = {data["p"]}**********')
     
 
 def on_error(ws, error):
-    print(error)
+    #print(error)
+    pass
 
 def on_close(ws):
     print("### closed ###")

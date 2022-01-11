@@ -29,17 +29,13 @@ def add_stock():
 
     # Check if stock already in db, add to stocks db if not
     stock = Stock.query.filter_by(ticker=ticker).first()
-    if not stock:
-        price = price # ********CHANGE THIS SO IT GETS THE PRICE FROM THE API!!!*******
-        stock = Stock(ticker=ticker, name="name", price=price)
-        db.session.add(stock)
-        db.session.commit()
     
-    stock_id = Stock.query.filter_by(ticker=ticker).first().id
+    stock_id = stock.id
     
     # Check if user already holds this asset
     portfolio_entry = Portfolio.query.filter_by(stock_id=stock_id, user_id=user_id).first()
 
+    # Update entry if exists
     if portfolio_entry:
         new_price = float(price)
         new_quantity = float(quantity)
@@ -51,6 +47,7 @@ def add_stock():
         portfolio_entry.quantity += int(quantity)
         db.session.commit()
     
+    # Create new entry if not exists
     else:
         portfolio_entry = Portfolio(user_id=user_id, stock_id=stock_id, quantity=quantity, purchase_price=price)
         db.session.add(portfolio_entry)
@@ -76,11 +73,6 @@ def sell_stock():
             db.session.delete(portfolio_entry)
             db.session.commit()
 
-            # Check if anyone else holds that stock, if not, remove from stocks db
-            stock = Stock.query.filter_by(ticker=ticker).first()
-            stock_in_portfolio = Portfolio.query.filter_by(stock_id=stock_id).first()
-            if not stock_in_portfolio:
-                db.session.delete(stock)
 
         else:
             new_price = float(price)

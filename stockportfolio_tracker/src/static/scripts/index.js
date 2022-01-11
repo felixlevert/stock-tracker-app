@@ -1,5 +1,5 @@
 import { ModalHandler } from './ModalHandlers.js'
-import { updatePrices, getQuote } from './updatePrices.js';
+import { updatePrices, getQuote } from './quotesApiCalls.js';
 
 
 class App {
@@ -11,8 +11,10 @@ class App {
         for (const row of portfolioRows) {
             tickers.push(row.id);
         }
-
-        updatePrices(tickers, portfolioRows);           
+        setInterval(function() {
+            updatePrices(tickers, portfolioRows);
+        }, 1000);
+                 
     }
 }
 

@@ -12,3 +12,4 @@ class Stock(db.Model):
         self.ticker = ticker
         self.name = name
         self.price = price
+
