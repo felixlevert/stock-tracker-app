@@ -34,13 +34,13 @@
                             <tr id="{{ stock.ticker }}">
                                 <td class="name-ticker">{{ stock.name }} ({{ stock.ticker }})</td>
                                 <td class="quantity">{{ stock.quantity }}</td>
-                                <td>todo</td>
-                                <td>todo</td>
+                                <td></td>
+                                <td></td>
                                 <td class="last-price">{{ '%0.2f' % stock.price|float }}</td>
                                 <td class="average-price">{{ '%0.2f' % stock.purchase_price|float }}</td>
                                 <td class="cost-basis">{{ '%0.2f' % (stock.purchase_price * stock.quantity)|float }}</td>
-                                <td>todo</td>
-                                <td>todo</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         {% endfor %}
                     {% else %}

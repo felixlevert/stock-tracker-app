@@ -24,7 +24,9 @@ def index():
 @main.route('/add-stock', methods=['POST'])
 def add_stock():
     user_id = current_user.id
-    ticker = request.form.get('ticker')
+    ticker_name = request.form.get('ticker').split('-')
+    ticker = ticker_name[0]
+    name = ticker_name[1]
     quantity = request.form.get('quantity')
     purchase_price = request.form.get('price')
     open_price = alpaca_api_calls.get_open_price(ticker)
@@ -37,7 +39,7 @@ def add_stock():
 
     if not stock:
         price = alpaca_api_calls.get_quote(ticker)
-        stock = Stock(ticker=ticker, name="name", price=price, price_open = open_price)
+        stock = Stock(ticker=ticker, name=name, price=price, price_open = open_price)
         db.session.add(stock)
         db.session.commit()
         stock_id = Stock.query.filter_by(ticker=ticker).first().id

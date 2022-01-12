@@ -2,16 +2,17 @@ import os
 import websocket
 import json
 from ..models.Stock import Stock
+from .. import db
 #from dotenv import load_dotenv
 
 #load_dotenv()
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
-
 def on_message(ws, message):
     msg = json.loads(message)
     data = msg['data']
+    print(message)
     try:
         if data['ev'] == 'T':
             ticker = data['T']
@@ -19,7 +20,7 @@ def on_message(ws, message):
             stock.price = data['p']
             db.session.commit()
     except:
-        print("Message is not event")
+        print("Didn't write to db")
     
 
 def on_error(ws, error):
@@ -39,7 +40,7 @@ def on_subscribe():
     stock_list = Stock.query.all()
     ticker_list = []
     for stock in stock_list:
-        ticker_list.append(f"T.{stock}")
+        ticker_list.append(f"T.{stock.ticker}")
  
     subscribe_object = {
         "action": "listen",
