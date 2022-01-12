@@ -2,9 +2,9 @@ import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_executor import Executor
+import psycopg2
 from . import config
-from flask_executor import executor
-
 
 
 
@@ -32,8 +32,22 @@ def create_app():
     # Populate stock prices on server startup
     @app.before_first_request
     def populate_prices():
-        # get quotes from my API
-        pass
+        from .models.Stock import Stock
+        from .alpaca_api import alpaca_api_calls
+        stock_list = Stock.query.all()
+        for stock in stock_list:
+            stock.price = alpaca_api_calls.get_quote(stock.ticker)
+            db.session.commit()
+
+    executor = Executor(app)
+
+    @app.before_first_request
+    def start_websocket():
+        from .alpaca_api import alpaca_websocket
+        executor.submit(alpaca_websocket.open_websocket)
+
+    from .routes.quotes import quotes as quotes_blueprint
+    app.register_blueprint(quotes_blueprint)
 
 
     # blueprint for auth routes in app

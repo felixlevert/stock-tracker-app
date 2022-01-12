@@ -2,7 +2,7 @@ const axios = window.axios;
 
 export const updatePrices = (tickers, portfolioRows) => {
 
-    let api_url='http://localhost:5002/quotes?';
+    let api_url='http://localhost:5001/quotes?';
 
     for (const ticker of tickers) {
         api_url = api_url.concat(`t=${ticker}&`);
@@ -13,7 +13,11 @@ export const updatePrices = (tickers, portfolioRows) => {
         const data = response.data;
         for (const row of portfolioRows) {
             // Update Last Price
-            const price = data[row.id];
+            const price = data[row.id]['price'];
+            const open = data[row.id]['open'];
+            const dayPl = (price - open).toFixed(2);
+            row.cells.item(2).innerHTML = (dayPl * row.cells.item(1).innerHTML).toFixed(2);
+            row.cells.item(3).innerHTML = `${(dayPl / price * 100).toFixed(2)}%`
             row.cells.item(4).innerHTML = price.toFixed(2);
             // Update Total Value
             const value = price * row.cells.item(1).innerHTML;
