@@ -2,7 +2,7 @@ const axios = window.axios;
 
 export const updatePrices = (tickers, portfolioRows) => {
 
-    let api_url='http://localhost:5001/quotes?';
+    let api_url='http://localhost:5000/quotes?';
 
     for (const ticker of tickers) {
         api_url = api_url.concat(`t=${ticker}&`);

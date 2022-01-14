@@ -1,29 +1,26 @@
 version: '3.6'
 
 services:
-  api:
-    build: .
+  web:
+    build: ./services/web
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - ./services/web:/usr/src/app
+    ports:
+      - 5000:5000
+    env_file: ./.env.dev
     depends_on:
-      - db
-    env_file: .env
-    environment:
-      STAGE: test
-      SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
-    networks:
-      - default
-    ports:
-      - 5001:5001
-    volumes:
-      - ./app:/usr/src/app/app
-      - ./migrations:/usr/src/app/migrations
-    restart: always
-
+      - db    
   db:
-    container_name: postgres
-    image: postgres:latest
-    env_file: .env
-    ports:
-      - 5432:5432
-    restart: always
+    image: postgres:13-alpine
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=stocks_dev
+      - POSTGRES_PASSWORD=stocks_dev
+      - POSTGRES_DB=stocks_dev
+
+volumes:
+  postgres_data:
+
+      
