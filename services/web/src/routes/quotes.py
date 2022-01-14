@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, jsonify, Response, abort
 from marshmallow import Schema, fields
 from ..models.Stock import Stock
 
@@ -18,12 +18,17 @@ def get_quotes():
         abort(400, str(errors))
 
     ticker_list = request.args.getlist('t')
+    if ticker_list[0] == '':
+        abort(400, 'No tickers supplied.')
     data = {}
-    for ticker in ticker_list:
-        stock = Stock.query.filter_by(ticker=ticker).first()
-        data[ticker] = {'price': stock.price, 'open': stock.price_open}
-    response = jsonify(data)
-    return response
+    try:
+        for ticker in ticker_list:
+            stock = Stock.query.filter_by(ticker=ticker).first()
+            data[ticker] = {'price': stock.price, 'open': stock.price_open}
+        response = jsonify(data)
+        return response
+    except:
+        return 404
 
 @quotes.after_request
 def add_header(response):

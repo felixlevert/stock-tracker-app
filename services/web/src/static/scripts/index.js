@@ -11,8 +11,15 @@ class App {
         for (const row of portfolioRows) {
             tickers.push(row.id);
         }
+        // Update stock prices every second.
         setInterval(function() {
-            updatePrices(tickers, portfolioRows);
+            /* 
+            Only call updatePrices if there are stocks in portfolio
+            Avoids unnessecary API calls.
+            */
+            if (tickers[0] != '') {
+                updatePrices(tickers, portfolioRows);
+            }            
         }, 1000);
                  
     }

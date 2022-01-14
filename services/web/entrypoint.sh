@@ -1,3 +1,17 @@
 #!/bin/sh
-export FLASK_APP=./src/__init__.py
-python -m flask run -h 0.0.0.0 -p 5001
+
+if [ "$DATABASE" = "postgres" ]
+then
+    echo "Waiting for postgres..."
+
+    while ! nc -z $SQL_HOST $SQL_PORT; do
+      sleep 0.1
+    done
+
+    echo "PostgreSQL started"
+fi
+
+python manage.py create_db
+echo "CHANGESSSS"
+
+exec "$@"
