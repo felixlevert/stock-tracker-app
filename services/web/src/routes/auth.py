@@ -6,9 +6,11 @@ from .. import db
 
 auth = Blueprint('auth', __name__)
 
+
 @auth.route('/login')
 def login():
     return render_template('login.html')
+
 
 @auth.route('/login', methods=['POST'])
 def login_post():
@@ -22,15 +24,17 @@ def login_post():
     # if user exists, hash supplied password and compare
     if not user or not check_password_hash(user.password, password):
         flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login')) 
+        return redirect(url_for('auth.login'))
 
-    #login user if above check passes
+    # Login user if above check passes
     login_user(user, remember=remember)
     return redirect(url_for('main.index'))
+
 
 @auth.route('/signup')
 def signup():
     return render_template('signup.html')
+
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
@@ -52,6 +56,7 @@ def signup_post():
     login_user(new_user, remember=remember)
 
     return redirect(url_for('main.index'))
+
 
 @auth.route('/logout')
 @login_required

@@ -3,9 +3,8 @@ import websocket
 import json
 from ..models.Stock import Stock
 from .. import db
-#from dotenv import load_dotenv
 
-#load_dotenv()
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -19,37 +18,39 @@ def on_message(ws, message):
             stock = Stock.query.filter_by(ticker=ticker).first()
             stock.price = data['p']
             db.session.commit()
-    except:
+    except Exception:
         print("Didn't write to db")
-    
+
 
 def on_error(ws, error):
     print(error)
-    
+
 
 def on_close(ws):
     print("### closed ###")
 
 
 ws = websocket.WebSocketApp('wss://data.alpaca.markets/stream',
-                        on_message = on_message,
-                        on_error = on_error,
-                        on_close = on_close)
+                            on_message=on_message,
+                            on_error=on_error,
+                            on_close=on_close)
+
 
 def on_subscribe():
     stock_list = Stock.query.all()
     ticker_list = []
     for stock in stock_list:
         ticker_list.append(f"T.{stock.ticker}")
- 
+
     subscribe_object = {
         "action": "listen",
         "data": {
             "streams": ticker_list
         }
     }
-
+    # Send subscribe object to websocket.
     ws.send(json.dumps(subscribe_object))
+
 
 def on_open(ws):
     auth = {
@@ -59,19 +60,14 @@ def on_open(ws):
             "secret_key": os.getenv('ALPACA_SECRET_KEY')
         }
     }
+    # Send auth object to websocket.
     ws.send(json.dumps(auth))
-    
+    # Subscribe to websocket.
     on_subscribe()
-
-    
     print("### websocket open ###")
-
- 
 
 
 def open_websocket():
     websocket.enableTrace(True)
-
-    
-    ws.on_open = on_open 
+    ws.on_open = on_open
     ws.run_forever()

@@ -7,19 +7,13 @@ from ..alpaca_api import alpaca_api_calls, alpaca_websocket
 
 main = Blueprint('main', __name__)
 
+
 @main.route('/')
 @login_required
 def index():
     portfolio = Portfolio.portfolio_builder(user_id=current_user.id)
     return render_template('index.html', name=current_user.name, portfolio=portfolio)
 
-# @main.context_processor
-# def inject_prices():
-#     portfolio = Portfolio.portfolio_builder(user_id=current_user.id)
-#     stock_prices = {}
-#     for p in portfolio:
-#         stock_prices[p['ticker']] = p['price']
-#     return stock_prices
 
 @main.route('/add-stock', methods=['POST'])
 def add_stock():
@@ -30,24 +24,23 @@ def add_stock():
     quantity = request.form.get('quantity')
     purchase_price = request.form.get('price')
     open_price = alpaca_api_calls.get_open_price(ticker)
-    
 
     # Check if stock already in db, add to stocks db if not
     stock = Stock.query.filter_by(ticker=ticker).first()
 
-    stock_id = 0
+    # Iinitalize stock_id
+    stock_id = None
 
     if not stock:
         price = alpaca_api_calls.get_quote(ticker)
-        stock = Stock(ticker=ticker, name=name, price=price, price_open = open_price)
+        stock = Stock(ticker=ticker, name=name, price=price, price_open=open_price)
         db.session.add(stock)
         db.session.commit()
         stock_id = Stock.query.filter_by(ticker=ticker).first().id
         alpaca_websocket.on_subscribe()
     else:
-        stock_id = stock.id  
-    
-    
+        stock_id = stock.id
+
     # Check if user already holds this asset
     portfolio_entry = Portfolio.query.filter_by(stock_id=stock_id, user_id=user_id).first()
 
@@ -62,14 +55,15 @@ def add_stock():
         portfolio_entry.purchase_price = new_avg_price
         portfolio_entry.quantity += int(quantity)
         db.session.commit()
-    
+
     # Create new entry if not exists
     else:
         portfolio_entry = Portfolio(user_id=user_id, stock_id=stock_id, quantity=quantity, purchase_price=purchase_price)
         db.session.add(portfolio_entry)
-        db.session.commit() 
+        db.session.commit()
 
     return redirect('/')
+
 
 @main.route('/sell-stock', methods=['POST'])
 def sell_stock():
@@ -85,15 +79,12 @@ def sell_stock():
     if portfolio_entry:
         new_quantity = portfolio_entry.quantity - int(quantity)
         if new_quantity < 1:
-            
             db.session.delete(portfolio_entry)
-
             # Check if anyone else holds that stock, if not, remove from stocks db
             stock = Stock.query.filter_by(ticker=ticker).first()
             stock_in_portfolio = Portfolio.query.filter_by(stock_id=stock_id).first()
             if not stock_in_portfolio:
                 db.session.delete(stock)
-
 
         else:
             new_price = float(price)
@@ -104,10 +95,7 @@ def sell_stock():
             new_avg_price = round(new_avg_price, 2)
             portfolio_entry.purchase_price = new_avg_price
             portfolio_entry.quantity = new_quantity
-        
+
         db.session.commit()
 
     return redirect('/')
-    
-
-    

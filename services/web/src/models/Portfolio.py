@@ -1,15 +1,15 @@
 from .. import db
 from .Stock import Stock
 
+
 class Portfolio(db.Model):
     __tablename__ = 'portfolios'
 
-    id = db.Column(db.Integer, primary_key=True)  
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey("stocks.id"), nullable=False)
     quantity = db.Column(db.Integer)
     purchase_price = db.Column(db.Float)
-
 
     def __init__(self, user_id, stock_id, quantity, purchase_price):
         self.user_id = user_id
@@ -31,10 +31,5 @@ class Portfolio(db.Model):
                 "price": stock.price
             }
             holdings.append(holding)
-        
+
         return holdings
-
-
-
-
-

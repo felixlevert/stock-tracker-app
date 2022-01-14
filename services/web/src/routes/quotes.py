@@ -4,6 +4,7 @@ from ..models.Stock import Stock
 
 quotes = Blueprint('quotes', __name__)
 
+
 @quotes.route('/quotes', methods=['GET'])
 def get_quotes():
     class QuerySchema(Schema):
@@ -11,13 +12,12 @@ def get_quotes():
 
     schema = QuerySchema()
 
-
     args = request.args
-    errors = schema.validate(request.args)
+    errors = schema.validate(args)
     if errors:
         abort(400, str(errors))
 
-    ticker_list = request.args.getlist('t')
+    ticker_list = args.getlist('t')
     if ticker_list[0] == '':
         abort(400, 'No tickers supplied.')
     data = {}
@@ -27,8 +27,9 @@ def get_quotes():
             data[ticker] = {'price': stock.price, 'open': stock.price_open}
         response = jsonify(data)
         return response
-    except:
+    except Exception:
         return 404
+
 
 @quotes.after_request
 def add_header(response):

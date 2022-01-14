@@ -1,28 +1,24 @@
-import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_executor import Executor
-import psycopg2
+
 from . import config
 
 
-#def create_app():
+# Initialize app and db.
 app = Flask(__name__)
-
-#env_config = os.getenv('APP_SETTINGS')
 app.config.from_object(config.Config)
-
-
 db = SQLAlchemy(app)
 
-#db.init_app(app)
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
+
 from .models.User import User
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,24 +35,26 @@ def populate_prices():
         stock.price = alpaca_api_calls.get_quote(stock.ticker)
         db.session.commit()
 
+
+# Create an executor instance to run websocket in background.
 executor = Executor(app)
 
+
+# Open alpaca websocket connection using executor.
 @app.before_first_request
 def start_websocket():
     from .alpaca_api import alpaca_websocket
     executor.submit(alpaca_websocket.open_websocket)
 
+
 from .routes.quotes import quotes as quotes_blueprint
+# blueprint for quotes api routes
 app.register_blueprint(quotes_blueprint)
 
-
-# blueprint for auth routes in app
 from .routes.auth import auth as auth_blueprint
+# blueprint for auth routes
 app.register_blueprint(auth_blueprint)
 
-# blueprint for non-auth parts of app
 from .routes.main import main as main_blueprint
+# blueprint for non-auth parts
 app.register_blueprint(main_blueprint)
-
-
-    #return app
