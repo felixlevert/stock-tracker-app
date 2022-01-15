@@ -6,8 +6,10 @@ from flask_executor import Executor
 from . import config
 
 
-# Initialize app and db.
+# Initialize app, assets (SASS) and db
 app = Flask(__name__)
+
+
 app.config.from_object(config.Config)
 db = SQLAlchemy(app)
 
