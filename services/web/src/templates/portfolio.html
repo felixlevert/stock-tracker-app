@@ -1,56 +1,56 @@
 <section class="section">
     <div class="columns is-centered">
-        <div class="column is-desktop">
-            <table id="portfolio" class="table">
-                <thead>
-                    <tr>
-                        <th>INSTRUMENT</th>
-                        <th class="quantity"><abbr title="Position - Quantity of shares held.">POS</abbr></th>
-                        <th class="daily-pl"><abbr title="Daily Profit/Loss - Total daily gain/loss for this position.">DAY P/L</abbr></th>
-                        <th class="daily-percent"><abbr title="Daily % Change">D % CHANGE</abbr></th>
-                        <th class="last-price"><abbr title="Last Price">LAST</abbr></th>
-                        <th class="average-price"><abbr title="Average Entry Price">AVG PRICE</abbr></th>
-                        <th class="cost-basis"><abbr title="Cost Basis">COST BASIS</abbr></th>
-                        <th class="value"><abbr title="Current Value">VALUE</abbr></th>
-                        <th class="unrel"><abbr title="Unrealized Profit/Loss">UNREALIZED</abbr></th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th class="name-ticker"></th>
-                        <th class="quantity"></th>
-                        <th class="daily-pl"></th>
-                        <th class="daily-percent"></th>
-                        <th class="last-price"></th>
-                        <th class="average-price"></th>
-                        <th class="cost-basis"></th>
-                        <th><button id="sell-position-button" class="button is-danger">REMOVE</button></th>
-                        <th><button id="new-position-button" class="button is-link">ADD POSITION</button></th>
-                    </tr>
-                </tfoot>
-                <tbody id="portfolio-table-body">
-                    {% if portfolio %}
-                        {% for stock in portfolio %}
-                            <tr id="{{ stock.ticker }}">
-                                <td class="name-ticker">{{ stock.name }} ({{ stock.ticker }})</td>
-                                <td class="quantity">{{ stock.quantity }}</td>
-                                <td class="daily-pl"></td>
-                                <td class="daily-percent"></td>
-                                <td class="last-price">{{ '%0.2f' % stock.price|float }}</td>
-                                <td class="average-price">{{ '%0.2f' % stock.purchase_price|float }}</td>
-                                <td class="cost-basis">{{ '%0.2f' % (stock.purchase_price * stock.quantity)|float }}</td>
-                                <td class="value"></td>
-                                <td class="unrel"></td>
-                            </tr>
-                        {% endfor %}
-                    {% else %}
-                        <tr>
-                            <td>Add your positions to get started!</td>
+        <table id="portfolio" class="table">
+            <thead>
+                <tr>
+                    <th>INSTRUMENT</th>
+                    <th class="quantity"><abbr title="Position - Quantity of shares held.">POS</abbr></th>
+                    <th class="daily-pl"><abbr title="Daily Profit/Loss - Total daily gain/loss for this position.">DAY P/L</abbr></th>
+                    <th class="daily-percent"><abbr title="Daily % Change">D % CHANGE</abbr></th>
+                    <th class="last-price"><abbr title="Last Price">LAST</abbr></th>
+                    <th class="average-price"><abbr title="Average Entry Price">AVG PRICE</abbr></th>
+                    <th class="cost-basis"><abbr title="Cost Basis">COST BASIS</abbr></th>
+                    <th class="value"><abbr title="Current Value">VALUE</abbr></th>
+                    <th class="unrel"><abbr title="Unrealized Profit/Loss">UNREALIZED</abbr></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th class="name-ticker"></th>
+                    <th class="quantity"></th>
+                    <th class="daily-pl"></th>
+                    <th class="daily-percent"></th>
+                    <th class="last-price"></th>
+                    <th class="average-price"></th>
+                    <th class="cost-basis"></th>
+                    <th class="desktop-button"><button id="sell-position-button" class="button is-danger">REMOVE</button></th>
+                    <th class="desktop-button"><button id="new-position-button" class="button is-link">ADD POSITION</button></th>
+                </tr>
+            </tfoot>
+            <tbody id="portfolio-table-body">
+                {% if portfolio %}
+                    {% for stock in portfolio %}
+                        <tr id="{{ stock.ticker }}">
+                            <td class="name-ticker">{{ stock.name }} ({{ stock.ticker }})</td>
+                            <td class="quantity">{{ stock.quantity }}</td>
+                            <td class="daily-pl"></td>
+                            <td class="daily-percent"></td>
+                            <td class="last-price">{{ '%0.2f' % stock.price|float }}</td>
+                            <td class="average-price">{{ '%0.2f' % stock.purchase_price|float }}</td>
+                            <td class="cost-basis">{{ '%0.2f' % (stock.purchase_price * stock.quantity)|float }}</td>
+                            <td class="value"></td>
+                            <td class="unrel"></td>
                         </tr>
-                    {% endif %}
-                </tbody>
-            </table>    
-        </div>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>Add your positions to get started!</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>    
+        <button id="sell-position-button" class="button is-danger">REMOVE</button>
+        <button id="new-position-button" class="button is-link">ADD</button>
     </div>
 </section>
         

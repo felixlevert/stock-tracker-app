@@ -1,20 +1,21 @@
 
 @media only screen and (max-width: 800px) {
-    .quantity, .daily-percent, .average-price, .cost-basis {
+    .quantity, .daily-percent, .average-price, .cost-basis, .value, .desktop-button {
         display: none;
     }
     .table {
-        margin-left: -2rem;
+        margin-left: -1rem;
     }
-    .navbar-end {
-        margin-right: 10rem;
-    }
+
     .title {
         font-size: larger;
         margin-top: 2rem;
     }
   }
 
+.title {
+    margin-top: 8rem;
+}
 
 .nav-title {
     font-size: 2rem;
