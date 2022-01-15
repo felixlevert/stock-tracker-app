@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_executor import Executor
@@ -58,3 +58,9 @@ app.register_blueprint(auth_blueprint)
 from .routes.main import main as main_blueprint
 # blueprint for non-auth parts
 app.register_blueprint(main_blueprint)
+
+
+# Route to serve static files
+@app.route("/static/<path:filename>")
+def staticfiles(filename):
+    return send_from_directory(app.config["STATIC_FOLDER"], filename)
