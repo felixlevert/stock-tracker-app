@@ -9,7 +9,6 @@ from . import config
 
 # Initialize app, assets (SASS) and db
 app = Flask(__name__)
-#Scss(app, static_dir='src/static/styles', asset_dir='src/assets')
 app.config.from_object(config.Config)
 db = SQLAlchemy(app)
 
