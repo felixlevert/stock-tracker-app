@@ -6,6 +6,8 @@ class App {
     static init() {
         new ModalHandler('new-position-button', 'add-position-modal', 'add');
         new ModalHandler('sell-position-button', 'sell-position-modal', 'sell');
+        new ModalHandler('new-position-button-mobile', 'add-position-modal', 'add');
+        new ModalHandler('sell-position-button-mobile', 'sell-position-modal', 'sell');
         let tickers = [];
         const portfolioRows = document.getElementById('portfolio-table-body').querySelectorAll('tr');;
         for (const row of portfolioRows) {
