@@ -4,8 +4,8 @@
         <form action="/add-stock" method="post" class="box">
             <div class="field">
               <label class="label">Stock</label>              
-              <div class="select">
-                <select name="ticker">
+              <div class="select is-primary">
+                <select name="ticker" class="select is-multiple">
                   <option disabled selected>Select a stock</option>
                   <option value="AAPL-Apple">AAPL - Apple</option>
                   <option value="ADBE-Adobe">ADBE - Adobe Inc.</option>
@@ -43,14 +43,14 @@
             <div class="field">
               <label class="label">Quantity</label>
               <div class="control">
-                <input class="input" type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="quantity" placeholder="Qty">
+                <input class="input is-primary" type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="quantity" placeholder="Qty">
               </div>
             </div>
 
             <div class="field">
                 <label class="label">Price</label>
                 <div class="control">
-                  <input class="input" type="number" step="0.001" name="price" placeholder="Stock Price">
+                  <input class="input is-primary" type="number" step="0.001" name="price" placeholder="Stock Price">
                 </div>
               </div>
 
@@ -79,7 +79,7 @@
         <form action="/sell-stock" method="post" class="box">
             <div class="field">
               <label class="label">Ticker/Company</label>
-              <div class="select">
+              <div class="select is-primary">
                 <select name="ticker">
                   <option disabled selected>Select a stock</option>
                   <option value="AAPL">AAPL - Apple</option>
@@ -118,14 +118,14 @@
             <div class="field">
               <label class="label">Quantity</label>
               <div class="control">
-                <input class="input" type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="quantity" placeholder="Qty">
+                <input class="input is-primary" type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="quantity" placeholder="Qty">
               </div>
             </div>
 
             <div class="field">
                 <label class="label">Price</label>
                 <div class="control">
-                  <input class="input" type="number" step="0.001" name="price" placeholder="Stock Price">
+                  <input class="input is-primary" type="number" step="0.001" name="price" placeholder="Stock Price">
                 </div>
               </div>
 

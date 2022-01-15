@@ -8,39 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;900&family=Source+Sans+Pro:wght@300;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="../static/styles/bulma_modifiers.css">
     <link rel="stylesheet" href="../static/styles/styles.css">
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="../static/scripts/index.js"></script>
     <title>Portfolio Tracker</title>
 </head>
 
-<section class="hero is-primary is-fullheight">
-
-    <div class="hero-head">
-        <nav class="navbar">
-            
-            <div class="container">
-                <h1 class="nav-title">portfolio tracker</h1>
-                <div id="navbarMenuHeroB" class="navbar-menu">
-                    <div class="navbar-end">
-                        <a href="{{ url_for('main.index') }}" class="navbar-item">
-                            Home
-                        </a>
-                        <a href="https://github.com/felixlevert/stock-tracker-app" class="navbar-item">
-                            Github
-                        </a>
-                        <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                            Logout
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <div class="hero-body">
-        <div class="container has-text-centered">
            {% block content %}
            {% endblock %}
         </div>

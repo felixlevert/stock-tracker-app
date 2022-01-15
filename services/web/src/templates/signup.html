@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% include 'headerlogin.html' %}
+
 <div class="column is-4 is-offset-4">
     <h3 class="title">Sign Up</h3>
     <div class="box">
-        <div class="tabs is-boxed">
+        <div class="tabs is-centered is-boxed">
             <ul>
               <li>
                 <a href={{ url_for('auth.login') }}>
-                  <span class="icon is-small"><i class="fas fa-login" aria-hidden="true"></i></span>
                   <span>Login</span>
                 </a>
               </li>
               <li class="is-active">
                 <a>
-                  <span class="icon is-small"><i class="fas fa-signup" aria-hidden="true"></i></span>
                   <span>Signup</span>
                 </a>
               </li>

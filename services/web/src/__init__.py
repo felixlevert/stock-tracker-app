@@ -1,4 +1,5 @@
 from flask import Flask, render_template, send_from_directory
+from flask_scss import Scss
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_executor import Executor
@@ -8,8 +9,7 @@ from . import config
 
 # Initialize app, assets (SASS) and db
 app = Flask(__name__)
-
-
+#Scss(app, static_dir='src/static/styles', asset_dir='src/assets')
 app.config.from_object(config.Config)
 db = SQLAlchemy(app)
 
