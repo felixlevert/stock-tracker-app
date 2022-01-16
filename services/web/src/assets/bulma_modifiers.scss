@@ -13,6 +13,7 @@ $accent2: #a75f5f;
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
 
+
 $grey-light: $lightaccent;
 $primary: $main;
 $link: $contrastaccent;
@@ -29,4 +30,18 @@ $tabs-boxed-link-hover-background-color: $contrastaccent;
 $tabs-boxed-link-active-border-color: $contrastaccent;
 $tabs-boxed-link-radius: 6px;
 
-@import "../static/node_modules/bulma/bulma.sass";
+@import "../static/node_modules/bulma/sass/utilities/_all.sass";
+@import "../static/node_modules/bulma/sass/base/_all.sass";
+@import "../static/node_modules/bulma/sass/elements/button.sass";
+@import "../static/node_modules/bulma/sass/elements/container.sass";
+@import "../static/node_modules/bulma/sass/elements/title.sass";
+@import "../static/node_modules/bulma/sass/elements/table.sass";
+@import "../static/node_modules/bulma/sass/elements/box.sass";
+@import "../static/node_modules/bulma/sass/elements/notification.sass";
+@import "../static/node_modules/bulma/sass/form/_all.sass";
+@import "../static/node_modules/bulma/sass/components/navbar.sass";
+@import "../static/node_modules/bulma/sass/components/modal.sass";
+@import "../static/node_modules/bulma/sass/components/tabs.sass";
+@import "../static/node_modules/bulma/sass/layout/hero.sass";
+@import "../static/node_modules/bulma/sass/layout/section.sass";
+@import "../static/node_modules/bulma/sass/grid/columns.sass";

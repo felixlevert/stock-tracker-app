@@ -68,14 +68,3 @@ export const updatePrices = (tickers, portfolioRows) => {
 
 }
 
-export const getQuote = (ticker) => {
-    const api_url = `http://localhost:5002/quotes?${ticker}`;
-
-    axios.get(api_url)
-    .then((response) => {
-        const data = response.data;
-        return data[ticker];
-    }, (error) => {
-        console.log(error);
-    });
-}

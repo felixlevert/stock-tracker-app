@@ -1,8 +1,8 @@
 import { ModalHandler } from './ModalHandlers.js'
-import { updatePrices, getQuote } from './quotesApiCalls.js';
+import { updatePrices} from './quotesApiCalls.js';
 
 
-class App {
+class Portfolio {
     static init() {
         new ModalHandler('new-position-button', 'add-position-modal', 'add');
         new ModalHandler('sell-position-button', 'sell-position-modal', 'sell');
@@ -23,8 +23,7 @@ class App {
                 updatePrices(tickers, portfolioRows);
             }            
         }, 1000);
-                 
     }
 }
 
-App.init();
+Portfolio.init();

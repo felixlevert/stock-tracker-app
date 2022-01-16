@@ -5,4 +5,6 @@ __pycache__
 .vscode
 database.conf
 postgres-data
+postgres_data_prod
+data
 

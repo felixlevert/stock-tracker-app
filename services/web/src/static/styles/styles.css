@@ -7,7 +7,12 @@
         margin-left: -1rem;
     }
 
-    .title {
+    .title-login {
+        font-size: larger;
+    }
+
+    .title-main {
+        text-align: center;
         font-size: larger;
         margin-top: 2rem;
     }
@@ -34,7 +39,13 @@
     
   }
 
-.title {
+  .title-login {
+    font-size: xx-large;
+}
+
+.title-main {
+    text-align: center;
+    font-size: xx-large;
     margin-top: 8rem;
 }
 
@@ -54,4 +65,8 @@
 
 .table {
     table-layout:fixed;
+}
+
+#demo-account-btn {
+    margin-bottom: 1rem;
 }
