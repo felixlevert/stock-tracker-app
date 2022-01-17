@@ -49,7 +49,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://stockportfoliotracker.net)
+[![Stock Tracker App Screen Shot][product-screenshot]](https://stockportfoliotracker.net)
 
 A simple web application that allows users to create an account, build their stock portfolio, and get live, to the second price update on some of the biggest stocks on the market. This was built as an learning experience, thus it uses the free tier of the Alpaca markets API, and is limited to 30 stocks at the moment.
 
@@ -187,4 +187,4 @@ Project Link: [https://github.com/felixlevert/stock-tracker-app](https://github.
 [license-url]: https://github.com/felixlevert/stock-tracker-app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/felix-levert-179a811aa/
-[product-screenshot]: https://ibb.co/LCHx5Dp
+[product-screenshot]: ./images/product-screenshot.png
