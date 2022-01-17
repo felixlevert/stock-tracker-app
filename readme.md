@@ -100,7 +100,7 @@ You will also need NPM
   ```
 * Other - https://www.npmjs.com/
 
-<br/>
+
 ### Installation
 
 1. Get a free API Key at [https://alpaca.markets/](https://alpaca.markets/)
