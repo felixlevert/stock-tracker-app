@@ -34,6 +34,7 @@ def populate_prices():
     stock_list = Stock.query.all()
     for stock in stock_list:
         stock.price = alpaca_api_calls.get_quote(stock.ticker)
+        stock.open_price = alpaca_api_calls.get_open_price(stock.ticker)
         db.session.commit()
 
 

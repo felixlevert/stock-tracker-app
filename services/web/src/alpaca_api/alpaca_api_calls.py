@@ -31,6 +31,7 @@ def open_prices_process():
                 open_price = barset[stock.ticker][0].o
                 stock.open_price = open_price
                 db.session.commit()
+                print(f"UPDATED OPEN PRICE: {stock.ticker}: {open_price}")
             except Exception:
                 print(f"Error getting open price for {stock.ticker}")
 
