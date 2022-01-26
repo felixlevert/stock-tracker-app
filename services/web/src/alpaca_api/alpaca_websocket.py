@@ -11,7 +11,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 def on_message(ws, message):
     msg = json.loads(message)
     data = msg['data']
-    print(message)
     try:
         if data['ev'] == 'T':
             ticker = data['T']
