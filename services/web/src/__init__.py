@@ -47,6 +47,10 @@ def start_websocket():
     from .alpaca_api import alpaca_websocket
     executor.submit(alpaca_websocket.open_websocket)
 
+@app.before_first_request
+def fetch_open_price():
+    from .alpaca_api import alpaca_api_calls
+    executor.submit(alpaca_api_calls.open_prices_process)
 
 from .routes.quotes import quotes as quotes_blueprint
 # blueprint for quotes api routes

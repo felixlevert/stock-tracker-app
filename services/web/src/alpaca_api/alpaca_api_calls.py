@@ -1,5 +1,7 @@
 import os
 import alpaca_trade_api as tradeapi
+from ..models.Stock import Stock
+from .. import db
 
 # Create API object
 api = tradeapi.REST(os.getenv('ALPACA_API_KEY_ID'), os.getenv('ALPACA_SECRET_KEY'))
@@ -14,6 +16,23 @@ def get_open_price(ticker):
     open_price = barset[ticker][0].o
     return open_price
 
+def open_prices_process():
+    while (True):
+        stock_list = Stock.query.all()
+
+        for stock in stock_list:
+            try:
+                # Get day bar for ticker
+                barset = api.get_barset(stock.ticker, 'day', limit=1)
+
+                # Get open price of bar
+                open_price = barset[ticker][0].o
+                stock.open_price = open_price
+                db.session.commit()
+            except:
+                print(f"Error getting open price for {stock.ticker}")
+                
+        time.sleep(1000)
 
 def get_quote(ticker):
     # Get quote for ticker
