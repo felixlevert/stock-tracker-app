@@ -38,20 +38,24 @@ def populate_prices():
 
 
 # Create an executor instance to run websocket in background.
-executor = Executor(app)
+websocket_executor = Executor(app, name='websocket')
 
 
 # Open alpaca websocket connection using executor.
 @app.before_first_request
 def start_websocket():
     from .alpaca_api import alpaca_websocket
-    executor.submit(alpaca_websocket.open_websocket)
+    websocket_executor.submit(alpaca_websocket.open_websocket)
+
+
+# Create an executor instance to run open price fetcher in background.
+open_prices_executor = Executor(app, name='open_prices')
 
 
 @app.before_first_request
 def fetch_open_price():
     from .alpaca_api import alpaca_api_calls
-    executor.submit(alpaca_api_calls.open_prices_process)
+    open_prices_executor.submit(alpaca_api_calls.open_prices_process)
 
 
 from .routes.quotes import quotes as quotes_blueprint
