@@ -11,10 +11,10 @@ api = tradeapi.REST(os.getenv('ALPACA_API_KEY_ID'), os.getenv('ALPACA_SECRET_KEY
 def get_open_price(ticker):
 
     # Get day bar for ticker
-    barset = api.get_barset(ticker, 'day', limit=1)
+    barset = api.get_barset(ticker, 'day', limit=2)
 
     # Get open price of bar
-    open_price = barset[ticker][0].o
+    open_price = barset[ticker][1].c
     return open_price
 
 
